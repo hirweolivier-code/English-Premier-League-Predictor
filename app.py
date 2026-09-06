@@ -1462,7 +1462,7 @@ try:
             st.markdown(
                 f"### {home} vs {away}"
             )
-           st.caption(
+            st.caption(
                 f"Expected goals: {home} {home_xg:.2f} — "
                 f"{away} {away_xg:.2f}"
             )
