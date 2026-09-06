@@ -1312,7 +1312,7 @@ if st.button("Predict Match"):
 )    
        
         
-)
+
         if prediction == "H":
 
             result_text = (
