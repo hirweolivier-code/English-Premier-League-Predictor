@@ -1288,6 +1288,10 @@ if st.button("Predict Match"):
     float(p_away),
     text=f"{away_team} win — {p_away * 100:.1f}%"
 )    
+        st.caption(
+    f"Expected goals: {home_team} {home_xg:.2f} — "
+    f"{away_team} {away_xg:.2f}"
+)
 
         if prediction == "H":
 
