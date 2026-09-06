@@ -1423,6 +1423,8 @@ try:
                 home_prob=p_home,
                 draw_prob=p_draw,
                 away_prob=p_away,
+                home_xg=home_xg,
+                away_xg=away_xg,
                 predicted_result=prediction
             )
             st.caption(
