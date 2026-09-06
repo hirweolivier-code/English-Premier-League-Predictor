@@ -37,6 +37,8 @@ def save_prediction_if_new(
             "home_prob": float(home_prob),
             "draw_prob": float(draw_prob),
             "away_prob": float(away_prob),
+            "home_xg": float(home_xg),
+            "away_xg": float(away_xg),
             "predicted_result": predicted_result,
             "actual_result": None,
             "correct": None
