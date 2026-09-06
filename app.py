@@ -1239,10 +1239,7 @@ if st.button("Predict Match"):
         away_xg = final_away_poisson.predict(
             X_future
         )[0]
-        score_home, score_away, score_prob = most_likely_scoreline(
-            home_xg,
-            away_xg
-        )
+        
 
         p_home, p_draw, p_away = poisson_match_probabilities_single(
             home_xg,
@@ -1313,13 +1310,8 @@ if st.button("Predict Match"):
     float(p_away),
     text=f"{away_team} win — {p_away * 100:.1f}%"
 )    
-        st.caption(
-    f"Expected goals: {home_team} {home_xg:.2f} — "
-    f"{away_team} {away_xg:.2f}"
-)
-        st.caption(
-            f"Most likely score: {home_team} {score_home}–{score_away} {away_team} "
-            f"({score_prob * 100:.1f}%)"
+       
+        
 )
         if prediction == "H":
 
@@ -1410,7 +1402,18 @@ try:
             away_xg = final_away_poisson.predict(
                 X_future
             )[0]
-
+            score_home, score_away, score_prob = most_likely_scoreline(
+                home_xg,
+                away_xg
+            )
+            st.caption(
+                f"Expected goals: {home_team} {home_xg:.2f} — "
+                f"{away_team} {away_xg:.2f}"
+            )
+            st.caption(
+                f"Most likely score: {home_team} {score_home}–{score_away} {away_team} "
+                f"({score_prob * 100:.1f}%)"
+            )
             # Convert expected goals to H / D / A probabilities
             p_home, p_draw, p_away = poisson_match_probabilities_single(
                 home_xg,
@@ -1427,6 +1430,7 @@ try:
                 prob_dict,
                 key=prob_dict.get
             )
+            
             if prediction == "H":
                 prediction_text = home
 
