@@ -1402,9 +1402,17 @@ try:
             away_xg = final_away_poisson.predict(
                 X_future
             )[0]
+            p_home, p_draw, p_away = poisson_match_probabilities_single(
+                home_xg,
+                away_xg
+            )
             score_home, score_away, score_prob = most_likely_scoreline(
                 home_xg,
                 away_xg
+            )
+            prediction = max(
+                {"H": p_home, "D": p_draw, "A": p_away},
+                key={"H": p_home, "D": p_draw, "A": p_away}.get
             )
             st.caption(
                 f"Expected goals: {home_team} {home_xg:.2f} — "
@@ -1415,10 +1423,7 @@ try:
                 f"({score_prob * 100:.1f}%)"
             )
             # Convert expected goals to H / D / A probabilities
-            p_home, p_draw, p_away = poisson_match_probabilities_single(
-                home_xg,
-                away_xg
-            )
+            
 
             prob_dict = {
                 "H": p_home,
