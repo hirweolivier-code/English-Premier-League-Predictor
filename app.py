@@ -1414,14 +1414,7 @@ try:
                 {"H": p_home, "D": p_draw, "A": p_away},
                 key={"H": p_home, "D": p_draw, "A": p_away}.get
             )
-            st.caption(
-                f"Expected goals: {home_team} {home_xg:.2f} — "
-                f"{away_team} {away_xg:.2f}"
-            )
-            st.caption(
-                f"Most likely score: {home_team} {score_home}–{score_away} {away_team} "
-                f"({score_prob * 100:.1f}%)"
-            )
+           
             # Convert expected goals to H / D / A probabilities
             
 
@@ -1444,7 +1437,14 @@ try:
 
             else:
                 prediction_text = "Draw"
-
+             st.caption(
+                f"Expected goals: {home} {home_xg:.2f} — "
+                f"{away} {away_xg:.2f}"
+            )
+            st.caption(
+                f"Most likely score: {home} {score_home}–{score_away} {away} "
+                f"({score_prob * 100:.1f}%)"
+            )
             match_date = pd.to_datetime(
                 match["Date"]
             )
