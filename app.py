@@ -746,6 +746,22 @@ def poisson_match_probabilities_single(
         p_draw / total,
         p_away / total
     )
+def most_likely_scoreline(home_xg, away_xg, max_goals=10):
+    goals = np.arange(max_goals + 1)
+
+    home_pmf = poisson.pmf(goals, home_xg)
+    away_pmf = poisson.pmf(goals, away_xg)
+
+    score_matrix = np.outer(home_pmf, away_pmf)
+
+    home_goals, away_goals = np.unravel_index(
+        np.argmax(score_matrix),
+        score_matrix.shape
+    )
+
+    probability = score_matrix[home_goals, away_goals]
+
+    return home_goals, away_goals, probability
 # ============================================================
 # BUILD ALL 28 FEATURES
 # ============================================================
@@ -1223,6 +1239,10 @@ if st.button("Predict Match"):
         away_xg = final_away_poisson.predict(
             X_future
         )[0]
+        score_home, score_away, score_prob = most_likely_scoreline(
+            home_xg,
+            away_xg
+        )
 
         p_home, p_draw, p_away = poisson_match_probabilities_single(
             home_xg,
@@ -1297,7 +1317,10 @@ if st.button("Predict Match"):
     f"Expected goals: {home_team} {home_xg:.2f} — "
     f"{away_team} {away_xg:.2f}"
 )
-
+        st.caption(
+            f"Most likely score: {home_team} {score_home}–{score_away} {away_team} "
+            f"({score_prob * 100:.1f}%)"
+)
         if prediction == "H":
 
             result_text = (
