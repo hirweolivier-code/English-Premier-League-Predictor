@@ -40,6 +40,7 @@ def save_prediction_if_new(
             "home_xg": float(home_xg),
             "away_xg": float(away_xg),
             "predicted_result": predicted_result,
+            "model_version": "poisson_alpha20_v1",
             "actual_result": None,
             "correct": None
         }
