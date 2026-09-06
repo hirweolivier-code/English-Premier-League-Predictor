@@ -16,6 +16,8 @@ def save_prediction_if_new(
     home_prob,
     draw_prob,
     away_prob,
+    home_xg,
+    away_xg,
     predicted_result
 ):
     existing = (
