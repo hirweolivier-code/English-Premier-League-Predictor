@@ -1437,14 +1437,7 @@ try:
 
             else:
                 prediction_text = "Draw"
-            st.caption(
-                f"Expected goals: {home} {home_xg:.2f} — "
-                f"{away} {away_xg:.2f}"
-            )
-            st.caption(
-                f"Most likely score: {home} {score_home}–{score_away} {away} "
-                f"({score_prob * 100:.1f}%)"
-            )
+            
             match_date = pd.to_datetime(
                 match["Date"]
             )
@@ -1468,8 +1461,15 @@ try:
             
             st.markdown(
                 f"### {home} vs {away}"
-        )
-
+            )
+           st.caption(
+                f"Expected goals: {home} {home_xg:.2f} — "
+                f"{away} {away_xg:.2f}"
+            )
+            st.caption(
+                f"Most likely score: {home} {score_home}–{score_away} {away} "
+                f"({score_prob * 100:.1f}%)"
+            )
             st.write(
                 f"Home: {p_home * 100:.1f}% | "
                 f"Draw: {p_draw * 100:.1f}% | "
