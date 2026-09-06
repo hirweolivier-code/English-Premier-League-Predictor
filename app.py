@@ -1065,17 +1065,17 @@ if pd.notna(latest_update):
 with st.expander("ℹ️ About the prediction model"):
 
     st.write(
-        "Model: Multiclass Logistic Regression"
+        "Model: Poisson Regression"
     )
 
     st.write(
         "Features: 31, including recent form, goals, "
         "home/away form, PPG, team strength, Elo and H2H."
     )
-
+    st.write(Two Poisson models estimate expected home and away goals. The expected goals are then converted into Home, Draw and Away probabilities.)
     st.write(
-        "Model tuning: C = 0.003 using expanding "
-        "time-series validation."
+        "Model tuning: alpha = 20 using expanding time-series validation."
+
     )
 
     st.write(
