@@ -1166,11 +1166,11 @@ with st.expander("ℹ️ About the prediction model"):
         "Predictions are probabilities, not guaranteed results."
     )
    
-completed, correct, accuracy = get_live_model_performance()
+completed, correct, accuracy, log_loss = get_live_model_performance()
 
 st.subheader("📊 2026/27 Prediction Performance")
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 col1.metric("Completed", completed)
 col2.metric("Correct", correct)
@@ -1179,6 +1179,10 @@ if accuracy is None:
     col3.metric("Accuracy", "—")
 else:
     col3.metric("Accuracy", f"{accuracy * 100:.1f}%")
+if log_loss is None:
+    col4.metric("Log Loss", "—")
+else:
+    col4.metric("Log Loss", f"{log_loss:.3f}")    
 history = get_prediction_history()
 
 st.subheader("📋 Prediction History")
