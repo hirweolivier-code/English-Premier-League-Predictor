@@ -764,6 +764,45 @@ def most_likely_scoreline(home_xg, away_xg, max_goals=10):
     probability = score_matrix[home_goals, away_goals]
 
     return home_goals, away_goals, probability
+import numpy as np
+
+def get_live_log_loss():
+
+    response = (
+        supabase
+        .table("predictions")
+        .select(
+            "home_prob,draw_prob,away_prob,"
+            "actual_result,model_version"
+        )
+        .not_.is_("actual_result", "null")
+        .eq("model_version", "poisson_alpha20_v1")
+        .execute()
+    )
+
+    rows = response.data
+
+    if not rows:
+        return None
+
+    losses = []
+
+    for row in rows:
+
+        if row["actual_result"] == "H":
+            p = row["home_prob"]
+
+        elif row["actual_result"] == "D":
+            p = row["draw_prob"]
+
+        else:
+            p = row["away_prob"]
+
+        p = max(float(p), 1e-15)
+
+        losses.append(-np.log(p))
+
+    return sum(losses) / len(losses)
 # ============================================================
 # BUILD ALL 28 FEATURES
 # ============================================================
@@ -1033,7 +1072,8 @@ def get_live_model_performance():
     response = (
         supabase
         .table("predictions")
-        .select("predicted_result,actual_result,correct,model_version")
+        .select("predicted_result,actual_result,correct,"
+                "home_prob,draw_prob,away_prob,model_version")
         .not_.is_("actual_result", "null")
         .eq("model_version", "poisson_alpha20_v1")
         .execute()
@@ -1042,14 +1082,33 @@ def get_live_model_performance():
     rows = response.data
 
     if not rows:
-        return 0, 0, None
+        return 0, 0, None, None
 
     completed = len(rows)
     correct = sum(1 for row in rows if row["correct"] is True)
 
     accuracy = correct / completed
+    losses = []
 
-    return completed, correct, accuracy
+    for row in rows:
+
+        if row["actual_result"] == "H":
+            p = row["home_prob"]
+
+        elif row["actual_result"] == "D":
+            p = row["draw_prob"]
+
+        else:
+            p = row["away_prob"]
+
+        p = max(float(p), 1e-15)
+
+        losses.append(-np.log(p))
+
+    log_loss = sum(losses) / completed
+
+    return completed, correct, accuracy, log_loss
+    
 def get_prediction_history():
 
     response = (
