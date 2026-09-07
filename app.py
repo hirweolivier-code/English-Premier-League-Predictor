@@ -675,7 +675,8 @@ def get_prediction_type_counts():
     response = (
         supabase
         .table("predictions")
-        .select("predicted_result")
+        .select("predicted_result,model_version")
+         .eq("model_version", "poisson_alpha20_v1")
         .execute()
     )
 
