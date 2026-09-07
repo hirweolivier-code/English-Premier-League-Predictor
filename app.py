@@ -1499,10 +1499,10 @@ try:
                 home_xg,
                 away_xg
             )
-           top_scores = top_scorelines(
-               home_xg,
-               away_xg,
-               top_n=3
+            top_scores = top_scorelines(
+                home_xg,
+                away_xg,
+                top_n=3
         
             )
             prediction = max(
