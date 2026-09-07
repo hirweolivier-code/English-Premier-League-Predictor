@@ -803,6 +803,32 @@ def get_live_log_loss():
         losses.append(-np.log(p))
 
     return sum(losses) / len(losses)
+def top_scorelines(home_xg, away_xg, max_goals=10, top_n=3):
+    goals = np.arange(max_goals + 1)
+
+    home_pmf = poisson.pmf(goals, home_xg)
+    away_pmf = poisson.pmf(goals, away_xg)
+
+    score_matrix = np.outer(home_pmf, away_pmf)
+
+    scorelines = []
+
+    for home_goals in goals:
+        for away_goals in goals:
+            scorelines.append(
+                (
+                    int(home_goals),
+                    int(away_goals),
+                    float(score_matrix[home_goals, away_goals])
+                )
+            )
+
+    scorelines.sort(
+        key=lambda x: x[2],
+        reverse=True
+    )
+
+    return scorelines[:top_n]
 # ============================================================
 # BUILD ALL 28 FEATURES
 # ============================================================
@@ -1473,9 +1499,11 @@ try:
                 home_xg,
                 away_xg
             )
-            score_home, score_away, score_prob = most_likely_scoreline(
-                home_xg,
-                away_xg
+           top_scores = top_scorelines(
+               home_xg,
+               away_xg,
+               top_n=3
+        
             )
             prediction = max(
                 {"H": p_home, "D": p_draw, "A": p_away},
