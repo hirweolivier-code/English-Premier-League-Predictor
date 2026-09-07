@@ -55,6 +55,7 @@ def get_confidence_performance():
             "home_prob,draw_prob,away_prob,correct"
         )
         .not_.is_("actual_result", "null")
+        .eq("model_version", "poisson_alpha20_v1")
         .execute()
     )
 
