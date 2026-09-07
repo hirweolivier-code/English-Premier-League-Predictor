@@ -1057,9 +1057,10 @@ def get_prediction_history():
         .select(
             "match_date,home_team,away_team,"
             "home_prob,draw_prob,away_prob,"
-            "predicted_result,actual_result,correct"
+            "predicted_result,actual_result,correct,model_version"
         )
         .not_.is_("actual_result", "null")
+        .eq("model_version", "poisson_alpha20_v1")
         .order("match_date", desc=True)
         .execute()
     )
