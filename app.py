@@ -1558,14 +1558,16 @@ try:
                 f"Expected goals: {home} {home_xg:.2f} — "
                 f"{away} {away_xg:.2f}"
             )
-            st.caption("Top 3 most likely scorelines:")
+            score_text = " · ".join(
+                [
+                    f"{score_home}–{score_away} ({score_prob * 100:.1f}%)"
+                    for score_home, score_away, score_prob in top_scores
+                ]
+            )
 
-            for i, (score_home, score_away, score_prob) in enumerate(top_scores, start=1):
-                st.caption(
-                    f"{i}. {home} {score_home}–{score_away} {away} "
-                    f"({score_prob * 100:.1f}%)"
-         
-                )
+            st.caption(
+                f"Likely scores: {score_text}"
+            )
             st.write(
                 f"Home: {p_home * 100:.1f}% | "
                 f"Draw: {p_draw * 100:.1f}% | "
