@@ -1031,8 +1031,9 @@ def get_live_model_performance():
     response = (
         supabase
         .table("predictions")
-        .select("predicted_result,actual_result,correct")
+        .select("predicted_result,actual_result,correct,model_version")
         .not_.is_("actual_result", "null")
+        .eq("model_version", "poisson_alpha20_v1")
         .execute()
     )
 
