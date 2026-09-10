@@ -1157,7 +1157,7 @@ def get_prediction_history():
         supabase
         .table("predictions")
         .select(
-            "match_date,home_team,away_team,"
+            "match_date,created_at,home_team,away_team,"
             "home_prob,draw_prob,away_prob,"
             "predicted_result,actual_result,correct,model_version"
         )
