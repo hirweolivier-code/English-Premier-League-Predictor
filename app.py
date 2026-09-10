@@ -838,6 +838,13 @@ def confidence_label(p_home, p_draw, p_away):
         return "Medium"
     else:
         return "Low"
+def confidence_icon(confidence):
+    if confidence == "High":
+        return "🟢"
+    elif confidence == "Medium":
+        return "🟡"
+    else:
+        return "🔴"
 # ============================================================
 # BUILD ALL 28 FEATURES
 # ============================================================
@@ -1598,7 +1605,7 @@ try:
 
             
             
-        
+            conf_icon = confidence_icon(confidence)
             
             confidence_value = max(
                 p_home,
@@ -1606,7 +1613,7 @@ try:
                 p_away
             )
             st.success(
-                f"Prediction: {prediction_text} — "
+                f"{conf_icon}f"Prediction: {prediction_text} — "
                 f"{confidence} confidence "
                 f"({confidence_value * 100:.1f}%)"
             )
