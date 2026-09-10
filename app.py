@@ -1505,6 +1505,11 @@ try:
                 home_xg,
                 away_xg
             )
+            confidence = confidence_label(
+                p_home,
+                p_draw,
+                p_away
+            )
             top_scores = top_scorelines(
                 home_xg,
                 away_xg,
