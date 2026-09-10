@@ -829,6 +829,15 @@ def top_scorelines(home_xg, away_xg, max_goals=10, top_n=3):
     )
 
     return scorelines[:top_n]
+def confidence_label(p_home, p_draw, p_away):
+    confidence = max(p_home, p_draw, p_away)
+
+    if confidence >= 0.60:
+        return "High"
+    elif confidence >= 0.45:
+        return "Medium"
+    else:
+        return "Low"
 # ============================================================
 # BUILD ALL 28 FEATURES
 # ============================================================
@@ -1506,7 +1515,11 @@ try:
                 {"H": p_home, "D": p_draw, "A": p_away},
                 key={"H": p_home, "D": p_draw, "A": p_away}.get
             )
-           
+           confidence = confidence_label(
+               p_home,
+               p_draw,
+               p_away
+            )
             # Convert expected goals to H / D / A probabilities
             
 
@@ -1576,6 +1589,10 @@ try:
 
             st.success(
                 f"Prediction: {prediction_text}"
+        
+            )
+            st.caption(
+                f"Confidence: {confidence}"
             )
 except Exception as e:
     st.error(
