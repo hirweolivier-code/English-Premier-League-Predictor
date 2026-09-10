@@ -1226,19 +1226,22 @@ else:
     for row in history:
 
         if row["predicted_result"] == "H":
-            predicted_text = row["home_team"]
+            predicted_text = f"{row['home_team']} Win"
+
         elif row["predicted_result"] == "A":
-            predicted_text = row["away_team"]
+            predicted_text = f"{row['away_team']} Win"
+
         else:
             predicted_text = "Draw"
 
         if row["actual_result"] == "H":
-            actual_text = row["home_team"]
+            actual_text = f"{row['home_team']} Win"
+
         elif row["actual_result"] == "A":
-            actual_text = row["away_team"]
+           actual_text = f"{row['away_team']} Win"
+
         else:
             actual_text = "Draw"
-
         status = "✅" if row["correct"] else "❌"
 
         st.write(
