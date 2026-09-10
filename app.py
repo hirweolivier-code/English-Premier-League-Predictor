@@ -1592,7 +1592,8 @@ try:
         
             )
             st.caption(
-                f"Confidence: {confidence}"
+                f"Confidence: {confidence} "
+                f"({confidence_value * 100:.1f}%)"
             )
 except Exception as e:
     st.error(
