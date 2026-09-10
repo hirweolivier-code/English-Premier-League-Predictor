@@ -1613,7 +1613,7 @@ try:
                 p_away
             )
             st.success(
-                f"{conf_icon}f"Prediction: {prediction_text} — "
+                f"{conf_icon} Prediction: {prediction_text} - "
                 f"{confidence} confidence "
                 f"({confidence_value * 100:.1f}%)"
             )
