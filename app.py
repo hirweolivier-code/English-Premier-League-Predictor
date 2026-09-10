@@ -1515,11 +1515,7 @@ try:
                 {"H": p_home, "D": p_draw, "A": p_away},
                 key={"H": p_home, "D": p_draw, "A": p_away}.get
             )
-            confidence = confidence_label(
-                p_home,
-                p_draw,
-                p_away
-            )
+            
             # Convert expected goals to H / D / A probabilities
             
 
@@ -1589,7 +1585,13 @@ try:
 
             st.success(
                 f"Prediction: {prediction_text}"
-        
+            
+            )
+            
+            confidence_value = max(
+                p_home,
+                p_draw,
+                p_away
             )
             st.caption(
                 f"Confidence: {confidence} "
