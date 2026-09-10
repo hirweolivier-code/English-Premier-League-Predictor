@@ -1536,10 +1536,10 @@ try:
             )
             
             if prediction == "H":
-                prediction_text = home
+                prediction_text = f"{home} Win"
 
             elif prediction == "A":
-                prediction_text = away
+                prediction_text = f"{away} Win"
 
             else:
                 prediction_text = "Draw"
