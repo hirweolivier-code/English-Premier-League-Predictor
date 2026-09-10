@@ -1266,10 +1266,10 @@ else:
             f"🤝 Draw: {row['draw_prob'] * 100:.1f}% | "
             f"✈️ {row['away_team']}: {row['away_prob'] * 100:.1f}%  \n"
             f"Actual: **{actual_text}**"
-         )
-         st.caption(
+        )
+        st.caption(
              f"Prediction generated: {created_at_display}"
-         )
+        )
 st.subheader("🎯 Performance by Confidence")
 
 confidence_results = get_confidence_performance()
