@@ -1588,20 +1588,21 @@ try:
                 f"Away: {p_away * 100:.1f}%"
             )
 
-            st.success(
-                f"Prediction: {prediction_text}"
             
-            )
+            
+        
             
             confidence_value = max(
                 p_home,
                 p_draw,
                 p_away
             )
-            st.caption(
-                f"Confidence: {confidence} "
+            st.success(
+                f"Prediction: {prediction_text} — "
+                f"{confidence} confidence "
                 f"({confidence_value * 100:.1f}%)"
             )
+            
 except Exception as e:
     st.error(
         f"Could not load upcoming fixtures: {type(e).__name__}: {e}"
