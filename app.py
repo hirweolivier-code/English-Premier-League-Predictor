@@ -1227,13 +1227,15 @@ else:
 
         if row["predicted_result"] == "H":
             predicted_text = f"{row['home_team']} Win"
-
+            predicted_prob = row["home_prob"]
         elif row["predicted_result"] == "A":
             predicted_text = f"{row['away_team']} Win"
+            predicted_prob = row["away_prob"]
 
         else:
             predicted_text = "Draw"
-
+            predicted_prob = row["draw_prob"]
+            
         if row["actual_result"] == "H":
             actual_text = f"{row['home_team']} Win"
 
@@ -1246,7 +1248,7 @@ else:
 
         st.write(
             f"{status} **{row['home_team']} vs {row['away_team']}**  \n"
-            f"Prediction: {predicted_text}  \n"
+            f"Prediction: **{predicted_text}** ({predicted_prob * 100:.1f}%) \n"
             f"🏠 {row['home_team']}: {row['home_prob'] * 100:.1f}% | "
             f"🤝 Draw: {row['draw_prob'] * 100:.1f}% | "
             f"✈️ {row['away_team']}: {row['away_prob'] * 100:.1f}%  \n"
