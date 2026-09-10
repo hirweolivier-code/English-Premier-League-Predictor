@@ -1583,9 +1583,9 @@ try:
                 f"Likely scores: {score_text}"
             )
             st.write(
-                f"Home: {p_home * 100:.1f}% | "
-                f"Draw: {p_draw * 100:.1f}% | "
-                f"Away: {p_away * 100:.1f}%"
+                f"**{home} Win:** {p_home * 100:.1f}%  |  "
+                f"**Draw:** {p_draw * 100:.1f}%  |  "
+                f"**{away} Win:** {p_away * 100:.1f}%"
             )
 
             
