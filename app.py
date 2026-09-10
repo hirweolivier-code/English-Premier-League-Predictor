@@ -1255,6 +1255,9 @@ else:
         match_date_display = pd.to_datetime(
             row["match_date"]
         ).strftime("%d %b %Y")
+        created_at_display = pd.to_datetime(
+            row["created_at"]
+        ).strftime("%d %b %Y, %H:%M UTC")
         st.write(
             f"📅 {match_date_display} \n"
             f"{status} **{row['home_team']} vs {row['away_team']}**  \n"
@@ -1263,7 +1266,10 @@ else:
             f"🤝 Draw: {row['draw_prob'] * 100:.1f}% | "
             f"✈️ {row['away_team']}: {row['away_prob'] * 100:.1f}%  \n"
             f"Actual: **{actual_text}**"
-        )
+         )
+         st.caption(
+             f"Prediction generated: {created_at_display}"
+         )
 st.subheader("🎯 Performance by Confidence")
 
 confidence_results = get_confidence_performance()
