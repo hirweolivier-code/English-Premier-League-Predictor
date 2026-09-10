@@ -1245,8 +1245,11 @@ else:
         else:
             actual_text = "Draw"
         status = "✅" if row["correct"] else "❌"
-
+        match_date_display = pd.to_datetime(
+            row["match_date"]
+        ).strftime("%d %b %Y")
         st.write(
+            f"📅 {match_date_display} \n"
             f"{status} **{row['home_team']} vs {row['away_team']}**  \n"
             f"Prediction: **{predicted_text}** ({predicted_prob * 100:.1f}%) \n"
             f"🏠 {row['home_team']}: {row['home_prob'] * 100:.1f}% | "
