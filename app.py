@@ -1618,6 +1618,12 @@ try:
                 p_draw,
                 p_away
             )
+            top_predictions.append({
+                "prediction": prediction_text,
+                "confidence": confidence_value,
+                "home": home,
+                "away": away
+            })
             st.success(
                 f"{conf_icon} Prediction: {prediction_text} - "
                 f"{confidence} confidence "
