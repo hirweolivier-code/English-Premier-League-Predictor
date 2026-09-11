@@ -845,6 +845,18 @@ def confidence_icon(confidence):
         return "🟡"
     else:
         return "🔴"
+def over_under_25_probabilities(home_xg, away_xg):
+    total_xg = home_xg + away_xg
+
+    p_under_25 = (
+        poisson.pmf(0, total_xg)
+        + poisson.pmf(1, total_xg)
+        + poisson.pmf(2, total_xg)
+    )
+
+    p_over_25 = 1 - p_under_25
+
+    return p_over_25, p_under_25
 # ============================================================
 # BUILD ALL 28 FEATURES
 # ============================================================
@@ -1523,6 +1535,10 @@ try:
                 X_future
             )[0]
             expected_total_goals = home_xg + away_xg
+            p_over_25, p_under_25 = over_under_25_probabilities(
+                home_xg,
+                away_xg
+            )
             p_home, p_draw, p_away = poisson_match_probabilities_single(
                 home_xg,
                 away_xg
@@ -1633,6 +1649,10 @@ try:
             )
             st.caption(
                 "Model probabilities are estimates based on historical and recent team data."
+            )
+            st.caption(
+                f"Over 2.5 goals: {p_over_25 * 100:.1f}% | "
+                f"Under 2.5 goals: {p_under_25 * 100:.1f}%"
             )
             top_predictions = sorted(
                 top_predictions,
