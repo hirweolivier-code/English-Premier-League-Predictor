@@ -1479,7 +1479,7 @@ try:
         st.caption(
             f"Premier League Matchweek {int(next_matchday)}"
         )
-
+        top_predictions = []
         for _, match in upcoming_fixtures.iterrows():
 
             home_api = match["HomeTeam"]
