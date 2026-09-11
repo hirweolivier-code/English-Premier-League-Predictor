@@ -1623,7 +1623,9 @@ try:
                 f"{confidence} confidence "
                 f"({confidence_value * 100:.1f}%)"
             )
-            
+            st.caption(
+                "Model probabilities are estimates based on historical and recent team data."
+            )
 except Exception as e:
     st.error(
         f"Could not load upcoming fixtures: {type(e).__name__}: {e}"
