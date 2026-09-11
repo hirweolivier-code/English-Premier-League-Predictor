@@ -1632,6 +1632,18 @@ try:
             st.caption(
                 "Model probabilities are estimates based on historical and recent team data."
             )
+            top_predictions = sorted(
+                top_predictions,
+                key=lambda x: x["confidence"],
+                reverse=True
+            )[:3]
+            st.subheader("🔥 Highest-confidence predictions")
+
+            for i, item in enumerate(top_predictions, start=1):
+                st.write(
+                    f"{i}. **{item['prediction']}** "
+                    f"({item['confidence'] * 100:.1f}%)"
+            )
 except Exception as e:
     st.error(
         f"Could not load upcoming fixtures: {type(e).__name__}: {e}"
