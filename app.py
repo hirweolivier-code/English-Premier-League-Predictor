@@ -1522,6 +1522,7 @@ try:
             away_xg = final_away_poisson.predict(
                 X_future
             )[0]
+            expected_total_goals = home_xg + away_xg
             p_home, p_draw, p_away = poisson_match_probabilities_single(
                 home_xg,
                 away_xg
@@ -1590,8 +1591,9 @@ try:
                 f"### {home} vs {away}"
             )
             st.caption(
-                f"Expected goals: {home} {home_xg:.2f} — "
-                f"{away} {away_xg:.2f}"
+                f"Expected goals: {home} {home_xg:.2f} - "
+                f"{away} {away_xg:.2f} | "
+                f"Total: {expected_total_goals:.2f}"
             )
             score_text = " · ".join(
                 [
